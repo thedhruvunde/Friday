@@ -5,6 +5,7 @@ import smtplib
 import webbrowser as web
 import wikipedia
 import os
+import pywhatkit
 
 engine = pyttsx3.init('sapi5')
 voices= engine.getProperty('voices') #getting details of current voice
@@ -74,42 +75,11 @@ if __name__ == "__main__":
                 search = query.split(' ')
                 search.remove('search')
                 search.remove('for')
-                search.remove('on')
-                if 'youtube' in search:
-                    speak("OK, Searching Youtube!")
-                    result = "youtube.com/results?search_query="
-                    for j in range(0, len(search)-1, 1):
-                        result = result + '+' + search[j]
+                speak("OK, Searching Google!")
+                result = "https://www.google.com/search?q="
+                for j in range(0, len(search)-1, 1):
+                    result = result + '+' + search[j]
                     web.open(result)
-                if 'google' in search:
-                    speak("OK, Searching Google!")
-                    result = "https://www.google.com/search?q="
-                    for j in range(0, len(search)-1, 1):
-                        result = result + '+' + search[j]
-                    web.open(result)
-                if 'github' in search:
-                    speak("OK, Searching Github!")
-                    result = "https://github.com/search?q=user%3Adhruvcode413+"
-                    for j in range(0, len(search)-1, 1):
-                        result = result + '+' + search[j]
-                    web.open(result)
-                if 'wikipedia' in search:
-                    speak("OK, Searching Wikpedia!")
-                    result = ""
-                    for j in range(0, len(search)-1, 1):
-                        result = result + ' ' + search[j]
-                    wiki = wikipedia.summary(result, sentences=2)
-                    speak('According to Wikipedia...')
-                    speak(wiki)   
-                if 'stackoverflow' in search:
-                    speak("OK, Searching StackOverflow!")
-                    result = "https://stackoverflow.com/search?q="
-                    for j in range(0, len(search)-1, 1):
-                        result = result + '+' + search[j]
-                    web.open(result)         
-            except Exception as s:
-                speak("Search not recognized...")
-                pass
 
         elif 'the time' in query:
             strTime = datetime.datetime.now().strftime("%H:%M:%S")    
@@ -161,9 +131,6 @@ if __name__ == "__main__":
             elif 'visual studio' in result:
                 os.startfile("C:\\Program Files (x86)\Microsoft Visual Studio\\2019\Community\Common7\IDE\devenv.exe")
             
-            elif 'kali' in result:
-                os.system("wsl -d kali-linux")
-            
             elif 'github' in result:
                 os.startfile("C:\\Users\DELL\AppData\Local\GitHubDesktop\GitHubDesktop.exe")
             
@@ -196,11 +163,3 @@ if __name__ == "__main__":
             
             elif 'word' in result:
                 os.startfile("C:\\Program Files\Microsoft Office\\root\Office16\WINWORD.exe")
-            
-            elif 'photoshop' in result:
-                os.startfile("D:\\Photoshop Files\Photoshop Files\Photoshop.exe")
-            
-            elif 'whatsapp' in result:
-                os.startfile("C:\\User\DELL\AppData\Local\WhatsApp\WhatsApp.exe")
-
-        el
