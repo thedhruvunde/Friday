@@ -22,6 +22,7 @@ def takeCommand():
     r = sr.Recognizer()
     with sr.Microphone() as source:
         print("Listening...")
+        r.pause_threshold = 1
         audio = r.listen(source)
 
     try:
@@ -30,9 +31,8 @@ def takeCommand():
         print(f"User said: {query}\n")
 
     except Exception as e:
-        with open(".Errors.log", 'a') as f:
-            f.write(e+'\n') 
-        speak("Say that again please...")  
+        # print(e)    
+        print("Say that again please...")  
         return "None"
     return query
 
@@ -71,15 +71,14 @@ if __name__ == "__main__":
         query = takeCommand().lower()
 
         if 'search for' in query:
-            try:
-                search = query.split(' ')
-                search.remove('search')
-                search.remove('for')
-                speak("OK, Searching Google!")
-                result = "https://www.google.com/search?q="
-                for j in range(0, len(search)-1, 1):
-                    result = result + '+' + search[j]
-                    web.open(result)
+            search = query.split(' ')
+            search.remove('search')
+            search.remove('for')
+            speak("OK, Searching Web!")
+            result = "https://www.google.com/search?q="
+            for j in range(0, len(search)-1, 1):
+                result = result + '+' + search[j]
+                web.open(result)
 
         elif 'the time' in query:
             strTime = datetime.datetime.now().strftime("%H:%M:%S")    
