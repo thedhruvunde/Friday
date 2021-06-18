@@ -5,6 +5,24 @@ import smtplib
 import webbrowser as web
 import wikipedia
 import os
+import pyjokes
+import subprocess
+import wolframalpha
+import tkinter
+import json
+import random
+import operator
+import winshell
+import feedparser
+import ctypes
+import requests
+import shutil
+from twilio.rest import Client
+from clint.textui import progress
+from ecapture import ecapture as ec
+from bs4 import BeautifulSoup
+import win32com.client as wincl
+from urllib.request import urlopen
 
 engine = pyttsx3.init('sapi5')
 voices= engine.getProperty('voices') #getting details of current voice
@@ -161,44 +179,11 @@ if __name__ == "__main__":
             elif 'visual studio' in result:
                 os.startfile("C:\\Program Files (x86)\Microsoft Visual Studio\\2019\Community\Common7\IDE\devenv.exe")
             
-            elif 'kali' in result:
-                os.system("wsl -d kali-linux")
-            
             elif 'github' in result:
                 os.startfile("C:\\Users\DELL\AppData\Local\GitHubDesktop\GitHubDesktop.exe")
             
             elif "zoom" in result:
                 os.startfile("C:\\Users\DELL\AppData\Roaming\Zoom\\bin\Zoom.exe")
-
-            elif 'excel' in result:
-                os.startfile("C:\\Program Files\Microsoft Office\\root\Office16\EXCEL.exe")
-            
-            elif 'access' in result:
-                os.startfile("C:\\Program Files\Microsoft Office\\root\Office16\MSACCESS.exe")
-            
-            elif 'publisher' in result:
-                os.startfile("C:\\Program Files\Microsoft Office\\root\Office16\MSPUB.exe")
             
             elif 'one note' in result:
                 os.startfile("C:\\Program Files\Microsoft Office\\root\Office16\ONENOTE.exe")
-            
-            elif 'outlook' in result:
-                os.startfile("C:\\Program Files\Microsoft Office\\root\Office16\OUTLOOK.exe")
-            
-            elif 'powerpoint' in result:
-                os.startfile("C:\\Program Files\Microsoft Office\\root\Office16\POWERPNT.exe")
-            
-            elif 'visio' in result:
-                os.startfile("C:\\Program Files\Microsoft Office\\root\Office16\VISIO.exe")
-            
-            elif 'project' in result:
-                os.startfile("C:\\Program Files\Microsoft Office\\root\Office16\WINPROJ.exe")
-            
-            elif 'word' in result:
-                os.startfile("C:\\Program Files\Microsoft Office\\root\Office16\WINWORD.exe")
-            
-            elif 'photoshop' in result:
-                os.startfile("D:\\Photoshop Files\Photoshop Files\Photoshop.exe")
-            
-            elif 'whatsapp' in result:
-                os.startfile("C:\\User\DELL\AppData\Local\WhatsApp\WhatsApp.exe")
