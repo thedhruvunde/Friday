@@ -220,7 +220,7 @@ if __name__ == "__main__":
             print("The answer is " + answer)
             speak("The answer is " + answer)
             
-        elif 'lock window' in query:
+        elif 'lock' in query:
             speak("locking the device")
             ctypes.windll.user32.LockWorkStation()
  
