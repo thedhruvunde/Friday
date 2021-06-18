@@ -17,12 +17,11 @@ import feedparser
 import ctypes
 import requests
 import shutil
-from twilio.rest import Client
 from clint.textui import progress
-from ecapture import ecapture as ec
 from bs4 import BeautifulSoup
 import win32com.client as wincl
 from urllib.request import urlopen
+import time
 
 engine = pyttsx3.init('sapi5')
 voices= engine.getProperty('voices') #getting details of current voice
@@ -64,7 +63,7 @@ def wishMe():
     else:
         speak("Good Evening Boss!")  
 
-    speak("I am Friday. Please tell me how may I help you")
+    speak("Please tell me how may I help you")
 
 def sendEmail(to, content, passwd):
     if passwd == 'dhruv2609':
@@ -187,3 +186,67 @@ if __name__ == "__main__":
             
             elif 'one note' in result:
                 os.startfile("C:\\Program Files\Microsoft Office\\root\Office16\ONENOTE.exe")
+
+
+        elif 'joke' in query:
+            speak(pyjokes.get_joke())
+        elif 'news' in query:
+             
+            try:
+                jsonObj = urlopen('''https://newsapi.org / v1 / articles?source = the-times-of-india&sortBy = top&apiKey =\\times of India Api key\\''')
+                data = json.load(jsonObj)
+                i = 1
+                 
+                speak('here are some top news from the times of india')
+                print('''=============== TIMES OF INDIA ============'''+ '\n')
+                 
+                for item in data['articles']:
+                     
+                    print(str(i) + '. ' + item['title'] + '\n')
+                    print(item['description'] + '\n')
+                    speak(str(i) + '. ' + item['title'] + '\n')
+                    i += 1
+            except Exception as e:
+                 
+                print(str(e))
+        elif "calculate" in query:
+             
+            app_id = "G7RL9K-3PRAHV2PA8"
+            client = wolframalpha.Client(app_id)
+            indx = query.lower().split().index('calculate')
+            query = query.split()[indx + 1:]
+            res = client.query(' '.join(query))
+            answer = next(res.results).text
+            print("The answer is " + answer)
+            speak("The answer is " + answer)
+            
+        elif 'lock window' in query:
+            speak("locking the device")
+            ctypes.windll.user32.LockWorkStation()
+ 
+        elif 'shutdown system' in query:
+            speak("Hold On a Sec ! Your system is on its way to shut down")
+            subprocess.call('shutdown / p /f')
+                 
+        elif 'empty recycle bin' in query:
+            winshell.recycle_bin().empty(confirm = False, show_progress = False, sound = True)
+            speak("Recycle Bin Recycled")
+        
+        elif "where is" in query:
+            query = query.replace("where is", "")
+            location = query
+            speak("User asked to Locate")
+            speak(location)
+            web.open("https://www.google.nl / maps / place/" + location + "")
+        
+        elif "restart" in query:
+            subprocess.call(["shutdown", "/r"])
+             
+        elif "hibernate" in query or "sleep" in query:
+            speak("Hibernating")
+            subprocess.call("shutdown / h")
+ 
+        elif "log out" in query or "sign out" in query:
+            speak("Make sure all the application are closed before sign-out")
+            time.sleep(5)
+            subprocess.call(["shutdown", "/l"])
