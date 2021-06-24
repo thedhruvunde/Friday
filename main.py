@@ -1,10 +1,14 @@
+import os
+os.system("conda install portaudio")
+os.system("conda install pyaudio")
+os.system("pip install -r C:\\Users\\dhruv\\Documents\\Projects\\Friday\\requirements.txt")
+os.system
 import pyttsx3
 import speech_recognition as sr
 import datetime
 import smtplib
 import webbrowser as web
 import wikipedia
-import os
 import pyjokes
 import subprocess
 import wolframalpha
@@ -97,18 +101,21 @@ if __name__ == "__main__":
                     result = "youtube.com/results?search_query="
                     for j in range(0, len(search)-1, 1):
                         result = result + '+' + search[j]
+                    speak("Here are the results!")
                     web.open(result)
                 if 'google' in search:
                     speak("OK, Searching Google!")
                     result = "https://www.google.com/search?q="
                     for j in range(0, len(search)-1, 1):
                         result = result + '+' + search[j]
+                    speak("Here are the results!")
                     web.open(result)
                 if 'github' in search:
                     speak("OK, Searching Github!")
                     result = "https://github.com/search?q=user%3Adhruvcode413+"
                     for j in range(0, len(search)-1, 1):
                         result = result + '+' + search[j]
+                    speak("Here are the results!")
                     web.open(result)
                 if 'wikipedia' in search:
                     speak("OK, Searching Wikpedia!")
@@ -123,10 +130,15 @@ if __name__ == "__main__":
                     result = "https://stackoverflow.com/search?q="
                     for j in range(0, len(search)-1, 1):
                         result = result + '+' + search[j]
+                    speak("Here are the results!")
                     web.open(result)         
             except Exception as s:
-                speak("Search not recognized...")
-                pass
+                speak("OK, Searching Web!")
+                result = "https://www.google.com/search?q="
+                for j in range(0, len(search)-1, 1):
+                    result = result + '+' + search[j]
+                speak("Here are the results!")
+                web.open(result)
 
         elif 'the time' in query:
             strTime = datetime.datetime.now().strftime("%H:%M:%S")    
@@ -138,7 +150,7 @@ if __name__ == "__main__":
         
         elif 'execute' in query:
             query = query.replace('open', '')
-            speak('OK, opening '+query)
+            speak('OK, executing '+query)
             os.system(query)
 
         elif 'email' in query:
@@ -179,13 +191,10 @@ if __name__ == "__main__":
                 os.startfile("C:\\Program Files (x86)\Microsoft Visual Studio\\2019\Community\Common7\IDE\devenv.exe")
             
             elif 'github' in result:
-                os.startfile("C:\\Users\DELL\AppData\Local\GitHubDesktop\GitHubDesktop.exe")
+                os.startfile("C:\\Users\dhruv\AppData\Local\GitHubDesktop\GitHubDesktop.exe")
             
             elif "zoom" in result:
-                os.startfile("C:\\Users\DELL\AppData\Roaming\Zoom\\bin\Zoom.exe")
-            
-            elif 'one note' in result:
-                os.startfile("C:\\Program Files\Microsoft Office\\root\Office16\ONENOTE.exe")
+                os.startfile("C:\\Users\dhruv\AppData\Roaming\Zoom\\bin\Zoom.exe")
 
 
         elif 'joke' in query:
@@ -193,7 +202,7 @@ if __name__ == "__main__":
         elif 'news' in query:
              
             try:
-                jsonObj = urlopen('''https://newsapi.org / v1 / articles?source = the-times-of-india&sortBy = top&apiKey =\\times of India Api key\\''')
+                jsonObj = urlopen('''https://newsapi.org / v1 / articles?source = the-times-of-india&sortBy = top&apiKey =\\46f67483cd6a40a8a86ffc784bdb6fdd\\''')
                 data = json.load(jsonObj)
                 i = 1
                  
