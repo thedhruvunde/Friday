@@ -27,9 +27,9 @@ import win32com.client as wincl
 from urllib.request import urlopen
 import time
 
-engine = pyttsx3.init('sapi5')
+engine = pyttsx3.init('espeak')
 voices= engine.getProperty('voices') #getting details of current voice
-engine.setProperty('voice', voices[1].id)
+engine.setProperty('voice', voices[9].id)
 
 def speak(audio):
     engine.say(audio)
