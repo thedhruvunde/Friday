@@ -99,121 +99,119 @@ def Cands(cand):
 if __name__ == "__main__":
     wishMe()
     while True:
-        Trigger = takeTrigger().lower()
-        if Trigger == "Eric":
-            query = takeCommand().lower()
+        query = takeCommand().lower()
 
-            if 'search for' in query:
-                try:
-                    search = query.split(' ')
-                    search.remove('search')
-                    search.remove('for')
-                    search.remove('on')
-                    if 'youtube' in search:
-                        speak("OK, Searching Youtube!")
-                        result = "youtube.com/results?search_query="
-                        for j in range(0, len(search)-1, 1):
-                            result = result + '+' + search[j]
-                        speak("Here are the results!")
-                        web.open(result)
-                    if 'google' in search:
-                        speak("OK, Searching Google!")
-                        result = "https://www.google.com/search?q="
-                        for j in range(0, len(search)-1, 1):
-                            result = result + '+' + search[j]
-                        speak("Here are the results!")
-                        web.open(result)
-                    if 'github' in search:
-                        speak("OK, Searching Github!")
-                        result = "https://github.com/search?q=user%3Adhruvcode413+"
-                        for j in range(0, len(search)-1, 1):
-                            result = result + '+' + search[j]
-                        speak("Here are the results!")
-                        web.open(result)
-                    if 'wikipedia' in search:
-                        speak("OK, Searching Wikpedia!")
-                        result = ""
-                        for j in range(0, len(search)-1, 1):
-                            result = result + ' ' + search[j]
-                        wiki = wikipedia.summary(result, sentences=2)
-                        speak('According to Wikipedia...')
-                        speak(wiki)   
-                    if 'stackoverflow' in search:
-                        speak("OK, Searching StackOverflow!")
-                        result = "https://stackoverflow.com/search?q="
-                        for j in range(0, len(search)-1, 1):
-                            result = result + '+' + search[j]
-                        speak("Here are the results!")
-                        web.open(result)         
-                except Exception as s:
-                    speak("OK, Searching Web!")
+        if 'search for' in query:
+            try:
+                search = query.split(' ')
+                search.remove('search')
+                search.remove('for')
+                search.remove('on')
+                if 'youtube' in search:
+                    speak("OK, Searching Youtube!")
+                    result = "youtube.com/results?search_query="
+                    for j in range(0, len(search)-1, 1):
+                        result = result + '+' + search[j]
+                    speak("Here are the results!")
+                    web.open(result)
+                if 'google' in search:
+                    speak("OK, Searching Google!")
                     result = "https://www.google.com/search?q="
                     for j in range(0, len(search)-1, 1):
                         result = result + '+' + search[j]
                     speak("Here are the results!")
                     web.open(result)
+                if 'github' in search:
+                    speak("OK, Searching Github!")
+                    result = "https://github.com/search?q=user%3Adhruvcode413+"
+                    for j in range(0, len(search)-1, 1):
+                        result = result + '+' + search[j]
+                    speak("Here are the results!")
+                    web.open(result)
+                if 'wikipedia' in search:
+                    speak("OK, Searching Wikpedia!")
+                    result = ""
+                    for j in range(0, len(search)-1, 1):
+                        result = result + ' ' + search[j]
+                    wiki = wikipedia.summary(result, sentences=2)
+                    speak('According to Wikipedia...')
+                    speak(wiki)   
+                if 'stackoverflow' in search:
+                    speak("OK, Searching StackOverflow!")
+                    result = "https://stackoverflow.com/search?q="
+                    for j in range(0, len(search)-1, 1):
+                        result = result + '+' + search[j]
+                    speak("Here are the results!")
+                    web.open(result)         
+            except Exception as s:
+                speak("OK, Searching Web!")
+                result = "https://www.google.com/search?q="
+                for j in range(0, len(search)-1, 1):
+                    result = result + '+' + search[j]
+                speak("Here are the results!")
+                web.open(result)
 
-            elif 'the time' in query:
-                strTime = datetime.datetime.now().strftime("%H:%M:%S")    
-                speak(f"Boss, the time is {strTime}")
-            
-            elif 'the date' in query:
-                strDate = str(datetime.date.today())
-                speak(f"Boss, the date is {strDate}")
-            
-            elif 'execute' in query:
-                query = query.replace('open', '')
-                query = query.replace('execute', '')
-                speak('OK, executing '+query)
-                os.system(query)
+        elif 'the time' in query:
+            strTime = datetime.datetime.now().strftime("%H:%M:%S")    
+            speak(f"Boss, the time is {strTime}")
 
-            elif 'email' in query:
-                try:
-                    speak('To whom?')
-                    to = takeCommand()
-                    Cands(to)
-                    speak("What should I say?")
-                    content = takeCommand()  
-                    speak("You have to enter Password to login...")
-                    passwd = input('passwd> ')
-                    sendEmail(to, content, passwd)
-                    speak("Email has been sent!")
-                except Exception as e:
-                    #print(e)
-                    speak("Sorry Boss. I am not able to send this email")
-            elif 'open' in query:
-                query = query.split(' ')
-                query.remove('open')
-                count = 0
-                result = str(None)
-                while (count<len(query)):
-                    result += query[count] + ' '
-                    count += 1
-                if 'command' in result:
-                    os.system("bash")
+        elif 'the date' in query:
+            strDate = str(datetime.date.today())
+            speak(f"Boss, the date is {strDate}")
 
-                elif 'browser' in result:
-                    os.system("firefox")
-                
-                elif 'github' in result:
-                    os.system("github-dektop")
+        elif 'execute' in query:
+            query = query.replace('open', '')
+            query = query.replace('execute', '')
+            speak('OK, executing '+query)
+            os.system(query)
+
+        elif 'email' in query:
+            try:
+                speak('To whom?')
+                to = takeCommand()
+                Cands(to)
+                speak("What should I say?")
+                content = takeCommand()  
+                speak("You have to enter Password to login...")
+                passwd = input('passwd> ')
+                sendEmail(to, content, passwd)
+                speak("Email has been sent!")
+            except Exception as e:
+                #print(e)
+                speak("Sorry Boss. I am not able to send this email")
+        elif 'open' in query:
+            query = query.split(' ')
+            query.remove('open')
+            count = 0
+            result = str(None)
+            while (count<len(query)):
+                result += query[count] + ' '
+                count += 1
+            if 'command' in result:
+                os.system("bash")
+
+            elif 'browser' in result:
+                os.system("firefox")
+
+            elif 'github' in result:
+                os.system("github-dektop")
 
 
-            elif 'joke' in query:
-                speak(pyjokes.get_joke())
-            
-            elif "calculate" in query:
-                
-                app_id = "G7RL9K-3PRAHV2PA8"
-                client = wolframalpha.Client(app_id)
-                indx = query.lower().split().index('calculate')
-                query = query.split()[indx + 1:]
-                res = client.query(' '.join(query))
-                answer = next(res.results).text
-                speak("The answer is " + answer)
-            
-            elif "where is" in query:
-                query = query.replace("where is", "")
-                location = query
-                speak("Here are the result")
-                web.open("https://www.google.nl / maps / place/" + location + "")
+        elif 'joke' in query:
+            speak(pyjokes.get_joke())
+
+        elif "calculate" in query:
+
+            app_id = "G7RL9K-3PRAHV2PA8"
+            client = wolframalpha.Client(app_id)
+            indx = query.lower().split().index('calculate')
+            query = query.split()[indx + 1:]
+            res = client.query(' '.join(query))
+            answer = next(res.results).text
+            speak("The answer is " + answer)
+
+        elif "where is" in query:
+            query = query.replace("where is", "")
+            location = query
+            speak("Here are the result")
+            web.open("https://www.google.nl / maps / place/" + location + "")
