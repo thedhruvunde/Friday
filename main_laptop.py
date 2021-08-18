@@ -229,7 +229,7 @@ if __name__ == "__main__":
                 os.system("reboot")
             
             elif "how are you" in query:
-			    speak("I'm fine, glad you me that")
+                speak("I'm fine, glad you me that")
 
             elif "i want to type" in query:
                 speak("Okay!")
