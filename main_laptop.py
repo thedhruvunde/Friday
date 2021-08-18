@@ -78,7 +78,7 @@ def Cands(cand):
     }
     candid = Candidiates[cand]
     return candid
-query_type=takeCommand().lower()
+
 if __name__ == "__main__":
     wishMe()
     while True:
@@ -227,6 +227,9 @@ if __name__ == "__main__":
             elif "reboot" in query:
                 speak("Okay, rebooting the computer...")
                 os.system("reboot")
+            
+            elif "how are you" in query:
+			    speak("I'm fine, glad you me that")
 
             elif "i want to type" in query:
                 speak("Okay!")
