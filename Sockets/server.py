@@ -1,38 +1,36 @@
-import socket
-import threading
-
-HEADER =  64
-PORT = 5050
-SERVER = socket.gethostbyname(socket.gethostname())
-ADDR = (SERVER, PORT)
-FORMAT = 'utf-8'
-DISCONNECT_MESSAGE = "!Disconnected"
-
-server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-server.bind(ADDR)
-
-def handle_client(conn, addr):
-    print(f"[New Connection] {addr} connected.")
-
-    connected = True
-    while connected:
-        msg_length = conn.recv(HEADER).decode(FORMAT)
-        msg_length = int(msg_length)
-        msg = conn.recv(msg_length).decode(FORMAT)
-        if msg == DISCONNECT_MESSAGE:
-            connected = False
-        print(f"[addr] {msg}")
-    
-    conn.close()
-
-
-def start():
-    server.listen()
-    print(f"Listening in ")
-    while True:
-        conn, addr = server.accept()
-        thread = threading.Thread(target=handle_client, args=(conn, addr))
-        thread.start()
-        print(f"[Active Connections] {threading.active_count()-1}")
-
-print("server starting...")
+# first of all import the socket library
+import socket            
+ 
+# next create a socket object
+s = socket.socket()        
+print ("Socket successfully created")
+ 
+# reserve a port on your computer in our
+# case it is 12345 but it can be anything
+port = 12345               
+ 
+# Next bind to the port
+# we have not typed any ip in the ip field
+# instead we have inputted an empty string
+# this makes the server listen to requests
+# coming from other computers on the network
+s.bind(('', port))        
+print ("socket binded to %s" %(port))
+ 
+# put the socket into listening mode
+s.listen(5)    
+print ("socket is listening")           
+ 
+# a forever loop until we interrupt it or
+# an error occurs
+while True:
+ 
+# Establish connection with client.
+c, addr = s.accept()    
+print ('Got connection from', addr )
+ 
+# send a thank you message to the client.
+c.send('Thank you for connecting')
+ 
+# Close the connection with the client
+c.close()
