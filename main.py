@@ -21,7 +21,6 @@ import time
 engine = pyttsx3.init('espeak')
 voices= engine.getProperty('voices') #getting details of current voice
 engine.setProperty('voice', voices[18].id)
-
 def speak(audio):
     engine.say(audio)
     print(audio)
@@ -47,24 +46,9 @@ def takeCommand():
         return "None"
     return query
 
-def takeTrigger():
-    #It takes microphone input from the user and returns string output
-
-    r = sr.Recognizer()
-    with sr.Microphone() as source:
-        audio = r.listen(source)
-
-    try:
-        print("Recognizing...")    
-        Trigger = r.recognize_google(audio, language='en-in')
-        print(f"User said: {query}\n")
-
-    except Exception as e:
-        with open(".Errors.log", 'a') as f:
-            f.write(str(e)+'\n') 
-#        speak("Say that again please...")  
-        return "None"
-    return Trigger
+def takeConsoleCommand():
+    query = str(input("Type here> "))
+    return query
 
 def wishMe():
     hour = int(datetime.datetime.now().hour)
@@ -162,6 +146,12 @@ if __name__ == "__main__":
             elif 'the date' in query:
                 strDate = str(datetime.date.today())
                 speak(f"Boss, the date is {strDate}")
+            
+            elif 'execute' in query:
+                query = query.replace('open', '')
+                query = query.replace('execute', '')
+                speak('OK, executing '+query)
+                os.system(query)
 
             elif 'email' in query:
                 try:
@@ -240,3 +230,11 @@ if __name__ == "__main__":
             
             elif "how are you" in query:
                 speak("I'm fine, glad you me that")
+
+            elif "i want to type" in query:
+                speak("Okay!")
+                query = takeConsoleCommand().lower()
+
+            elif "i want to talk" in query:
+                speak("Okay!")
+                query = takeCommand().lower()
