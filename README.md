@@ -1,2 +1,1 @@
 # Eric
-your virtual friend! :)
