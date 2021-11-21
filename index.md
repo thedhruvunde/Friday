@@ -1,4 +1,4 @@
-
+Let us see who is Eric and what Eric can do
 
 ## Who is Eric?
 Eric is a virtual assistant that can help you to complete your work fast and easily by just your voice commands
