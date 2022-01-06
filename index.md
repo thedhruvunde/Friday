@@ -1,4 +1,4 @@
-Let us see who is Eric and what Friday can do
+Let us see who is Friday and what Friday can do
 
 ## Who is Friday?
 Friday is a virtual assistant that can help you to complete your work fast and easily by just your voice commands
