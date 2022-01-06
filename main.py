@@ -17,6 +17,7 @@ import shutil
 from bs4 import BeautifulSoup
 from urllib.request import urlopen
 import time
+from ecapture import ecapture as ec
 
 engine = pyttsx3.init('sapi5')
 voices= engine.getProperty('voices') #getting details of current voice
@@ -72,26 +73,21 @@ def sendEmail(to, content, passwd):
         server.close()
 
 def Cands(cand):
-    Candidiates = {
+    recv = {
         'mother':'dhruvpradnya@gmail.com',
         'code':'dhruvcode413@gmail.com'
     }
-    candid = Candidiates[cand]
-    return candid
+    if cand in recv:
+        recp = recv[cand]
+        return recp
+    else:
+        speak("Contact not found in contact list, type email address")
+        recp = input("Type Here> ")
 
 if __name__ == "__main__":
     wishMe()
     while True:
         query = takeCommand().lower()
-        query = query.split(" ")
-        if 'eric' in query:
-            query.remove('eric')
-        else:
-            pass
-        a = ''
-        for i in range(0, len(query), 1):
-            a += query[i] + ' '
-        query = a
         if 'search' in query:
             try:
                 search = query.split(' ')
@@ -113,9 +109,9 @@ if __name__ == "__main__":
                     web.open(result)
                 if 'github' in search:
                     speak("OK, Searching Github!")
-                    result = "https://github.com/search?q=user%3Adhruvcode413+"
+                    result = "https://github.com/search?q="
                     for j in range(0, len(search), 1):
-                        result = result + '+' + search[j]
+                        result = result + search[j] + '+' 
                     speak("Here are the results!")
                     web.open(result)
                 if 'wikipedia' in search:
@@ -166,7 +162,7 @@ if __name__ == "__main__":
                 sendEmail(to, content, passwd)
                 speak("Email has been sent!")
             except Exception as e:
-                #print(e)
+                print(e)
                 speak("Sorry Boss. I am not able to send this email")
         elif 'open' in query:
             query = query.split(' ')
@@ -176,20 +172,20 @@ if __name__ == "__main__":
             while (count<len(query)):
                 result += query[count] + ' '
                 count += 1
-                if 'command' in result:
-                    os.system("alacritty")
+            if 'command' in result:
+                os.system("cmd")
 
-                elif 'browser' in result:
-                    os.system("firefox")
-            
-                elif 'github' in result:
-                    os.system("github-dektop")
+            elif 'browser' in result:
+                os.system('"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"')
+        
+            elif 'github' in result:
+                os.system("github-dektop")
 
-                elif 'files' in result:
-                    os.system("nautilus")
+            elif 'file' in result:
+                os.system("explorer")
 
-                elif 'visual studio' in result:
-                    os.system("code")
+            elif 'visual studio' in result:
+                os.system("code")
 
         elif 'joke' in query:
             speak(pyjokes.get_joke())
@@ -223,7 +219,7 @@ if __name__ == "__main__":
 
         elif "shutdown" in query:
             speak("Okay, powering off...")
-            os.system("shutdown now")
+            subprocess.call('shutdown / p /f')
 
         elif "reboot" in query:
             speak("Okay, rebooting the computer...")
@@ -239,3 +235,27 @@ if __name__ == "__main__":
         elif "i want to talk" in query:
             speak("Okay!")
             query = takeCommand().lower()
+        
+        elif 'lock window' in query:
+                speak("locking the device")
+                ctypes.windll.user32.LockWorkStation()
+                 
+        elif 'empty recycle bin' in query:
+            winshell.recycle_bin().empty(confirm = False, show_progress = False, sound = True)
+            speak("Recycle Bin Recycled")
+ 
+        elif "take a photo" in query:
+            ec.capture(0, "Jarvis Camera ", "img.jpg")
+ 
+        elif "restart" in query:
+            subprocess.call(["shutdown", "/r"])
+             
+        elif "hibernate" in query or "sleep" in query:
+            speak("Hibernating")
+            subprocess.call("shutdown / h")
+ 
+        elif "log off" in query or "sign out" in query:
+            speak("Make sure all the application are closed before sign-out")
+            time.sleep(5)
+            subprocess.call(["shutdown", "/l"])
+ 
