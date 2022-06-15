@@ -6,18 +6,10 @@ import smtplib
 import webbrowser as web
 import wikipedia
 import pyjokes
-import subprocess
 import wolframalpha
-import json
 import random
-import operator
-import ctypes
-import requests
-import shutil
-from bs4 import BeautifulSoup
-from urllib.request import urlopen
-import time
-from ecapture import ecapture as ec
+import string
+
 
 engine = pyttsx3.init('sapi5')
 voices= engine.getProperty('voices') #getting details of current voice
@@ -72,10 +64,22 @@ def sendEmail(to, content, passwd):
         server.sendmail('dhruvunde26@gmail.com', to, content)
         server.close()
 
+def PasswdGenerator(pass_str, pass_len):
+    password = ''
+    speak("Generating Password...")
+    for x in range (0,4):
+        password = random.choice(string.ascii_uppercase)+random.choice(string.ascii_lowercase)+random.choice(string.digits)+random.choice(string.punctuation)
+    for y in range(pass_len.get()- 4):
+        password = password+random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits + string.punctuation)
+    pass_str = password
+    speak("Password Generated!")
+    print(f"Password: {pass_str}")
+
 def Cands(cand):
     recv = {
         'mother':'dhruvpradnya@gmail.com',
-        'code':'dhruvcode413@gmail.com'
+        'code':'dhruvcode413@gmail.com',
+        'yash mulay':'sm.mulay2015@gmail.com'
     }
     if cand in recv:
         recp = recv[cand]
@@ -164,6 +168,7 @@ if __name__ == "__main__":
             except Exception as e:
                 print(e)
                 speak("Sorry Boss. I am not able to send this email")
+        
         elif 'open' in query:
             query = query.split(' ')
             query.remove('open')
@@ -176,13 +181,13 @@ if __name__ == "__main__":
                 os.system("cmd")
 
             elif 'browser' in result:
-                os.system('"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"')
+                web.open("")
         
             elif 'github' in result:
-                os.system("github-dektop")
+                web.open("github.com")
 
             elif 'file' in result:
-                os.system("explorer")
+                os.system("nautilus")
 
             elif 'visual studio' in result:
                 os.system("code")
@@ -219,7 +224,7 @@ if __name__ == "__main__":
 
         elif "shutdown" in query:
             speak("Okay, powering off...")
-            subprocess.call('shutdown / p /f')
+            os.system("shutdown now")
 
         elif "reboot" in query:
             speak("Okay, rebooting the computer...")
@@ -235,27 +240,17 @@ if __name__ == "__main__":
         elif "i want to talk" in query:
             speak("Okay!")
             query = takeCommand().lower()
-        
-        elif 'lock window' in query:
-                speak("locking the device")
-                ctypes.windll.user32.LockWorkStation()
-                 
-        elif 'empty recycle bin' in query:
-            winshell.recycle_bin().empty(confirm = False, show_progress = False, sound = True)
-            speak("Recycle Bin Recycled")
  
-        elif "take a photo" in query:
-            ec.capture(0, "Jarvis Camera ", "img.jpg")
- 
-        elif "restart" in query:
-            subprocess.call(["shutdown", "/r"])
-             
-        elif "hibernate" in query or "sleep" in query:
-            speak("Hibernating")
-            subprocess.call("shutdown / h")
- 
-        elif "log off" in query or "sign out" in query:
-            speak("Make sure all the application are closed before sign-out")
-            time.sleep(5)
-            subprocess.call(["shutdown", "/l"])
- 
+        elif "open camera" in query:
+            os.system("cheese")
+
+        elif "generate password" in query:
+            pass_str = ""
+            speak("Please enter length of password...")
+            pass_len = int(takeCommand())
+            PasswdGenerator(pass_str, pass_len)
+
+        elif "simulate dice" in query:
+            dice_num = random.randint(1, 6)
+            speak("Starting simulation...")
+            speak(dice_num)
