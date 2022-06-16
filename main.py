@@ -9,6 +9,7 @@ import pyjokes
 import wolframalpha
 import random
 import string
+import requests
 
 
 engine = pyttsx3.init('sapi5')
@@ -43,10 +44,28 @@ def takeConsoleCommand():
     query = str(input("Type here> "))
     return query
 
+def getWheather():
+    weather_key = 'a4aa5e3d83ffefaba8c00284de6ef7c3'
+    city = 'pune'
+    url = 'https://api.openweathermap.org/data/2.5/weather'
+    params = {'APPID': weather_key, 'q': city, 'units': 'metric'}
+    response = requests.get(url, params=params)
+    weather = response.json()
+    try:
+        name = weather['name']
+        desc = weather['weather'][0]['description']
+        temp = weather['main']['temp']
+
+        return desc
+        return temp
+            #speak(f"Sir, the Temperature in the city is {temp} degree celcius and climate is {desc}")
+    except:
+        pass
 def wishMe():
     hour = int(datetime.datetime.now().hour)
+    getWheather()
     if hour>=0 and hour<12:
-        speak("Good Morning Boss!")
+        speak(f"Good Morning Boss!, today's wheather is {desc} and temperature is {temp} degree celcius")
 
     elif hour>=12 and hour<18:
         speak("Good Afternoon Boss!")   
@@ -87,6 +106,7 @@ def Cands(cand):
     else:
         speak("Contact not found in contact list, type email address")
         recp = input("Type Here> ")
+
 
 if __name__ == "__main__":
     wishMe()
@@ -254,3 +274,8 @@ if __name__ == "__main__":
             dice_num = random.randint(1, 6)
             speak("Starting simulation...")
             speak(dice_num)
+        
+        elif "weather" in query:
+             
+            getWheather()
+            speak(f"Boss, Today's wheather is {desc} and temperature is {temp} degree celcius")
